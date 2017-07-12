@@ -1,0 +1,105 @@
+<div class="container-fluid">
+    <div class="row">
+    <div class="col-md-4">
+        <div class="panel panel-primary">
+            <div class="panel-heading">Add New Supplier Rule</div>
+            <div class="panel-body">
+                <form>
+                    <div class="form-group">
+                        <label for="longDescription">Supplier ID</label>
+                        <input type="text" class="form-control" id="longDescription" placeholder="Supplier ID" ng-model="currenSupplierRule.supplierID">
+                    </div>
+
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" ng-model="currenSupplierRule.withFlagX"> with Flag X
+                        </label>
+                    </div>
+
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" ng-model="currenSupplierRule.rawByCPI"> find raw quantitiy by CPI
+                        </label>
+                    </div>
+
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" ng-model="currenSupplierRule.ndfByX"> find ndf quantity by X
+                        </label>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" ng-model="setQuantity"> set quantity value
+                            </label>
+                        </div>
+                        <input type="number" class="form-control" id="longDescription" placeholder="Quantity Value" ng-model="currenSupplierRule.setQuantity" ng-disabled="!setQuantity">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="keywords">Conditions</label>
+
+                        <span ng-repeat="condition in currenSupplierRule.conditions track by $index">
+                            <select ng-model="currenSupplierRule.conditions[$index].column" ng-cloak>
+                                <option ng-repeat="column in columns" ng-value="column">{{column}}</option>
+                            </select>
+                            <select ng-model="currenSupplierRule.conditions[$index].operator" ng-cloak>
+                                <option value="=">=</option> 
+                                <option value="!=">!=</option>
+                            </select>
+                            <input type="number" class="form-control" id="value" placeholder="value" ng-model="currenSupplierRule.conditions[$index].value">
+                        </span>
+
+                    </div>
+
+                    <div class="form-group">
+                        <button class="btn" ng-click="addConditionForm()">Add</button>
+                    </div>
+
+                    <button class="btn" ng-click="save()">Save</button>
+                    <button class="btn" ng-click="cancel()">Cancel</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-8">
+        <div class="panel panel-primary">
+            <div class="panel-heading">CPI</div>
+
+            <!-- Table -->
+            <table class="table table-striped table-hover table-condensed">
+                <thead>
+                    <tr>
+                        <th>Supplier ID</th>
+                        <th>with Flag X</th>
+                        <th>Raw by CPI</th>
+                        <th>NDF by X</th>
+                        <th>Quantity Value</th>
+                        <th>Conditions</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="supplierRule in supplierRules">
+                    <td>{{ supplierRule.supplierID }}</td>
+                    <td>{{ supplierRule.withFlagX }}</td>
+                    <td>{{ supplierRule.rawByCPI }}</td>
+                    <td>{{ supplierRule.ndfByX }}</td>
+                    <td>{{ supplierRule.setQuantity }}</td>
+                    <td>{{ supplierRule.conditions }}</td>
+                    <td>
+                        <button type="button" class="btn" aria-label="Left Align" ng-click="edit()">
+                            <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+                        </button>
+                        <button type="button" class="btn" aria-label="Left Align" ng-click="deleteRule()">
+                            <span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
+                        </button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    </div>
+</div>
