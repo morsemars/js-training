@@ -1,5 +1,5 @@
 ;(function(global){
-
+    console.log("Test Change");
     var 
         primitiveA,
         primitiveB,
